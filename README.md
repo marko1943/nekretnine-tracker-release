@@ -3,14 +3,14 @@
 Chrome ekstenzija za čuvanje oglasa za nekretnine — ocena, prioritet, status, beleške i filteri.
 Podaci u **Chrome sync**-u (isti Google nalog na više računara). Bez našeg servera.
 
-**Verzija:** 1.1.0
+**Verzija:** 1.1.1
 
 ## Preuzmi
 
 | Fajl | Link |
 |------|------|
 | Najnoviji ZIP | [nekretnine-tracker.zip](nekretnine-tracker.zip) |
-| Verzionisani ZIP | [nekretnine-tracker-1.1.0.zip](nekretnine-tracker-1.1.0.zip) |
+| Verzionisani ZIP | [nekretnine-tracker-1.1.1.zip](nekretnine-tracker-1.1.1.zip) |
 
 Direktan link (najnoviji):
 
