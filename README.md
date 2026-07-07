@@ -10,13 +10,14 @@ Podaci u **Chrome sync**-u (isti Google nalog na više računara). Bez našeg se
 | Fajl | Link |
 |------|------|
 | Najnoviji ZIP | [nekretnine-tracker.zip](nekretnine-tracker.zip) |
-| Verzionisani ZIP | [nekretnine-tracker-1.1.1.zip](nekretnine-tracker-1.1.1.zip) |
 
 Direktan link (najnoviji):
 
 ```
 https://github.com/marko1943/nekretnine-tracker-release/raw/main/nekretnine-tracker.zip
 ```
+
+Šta je novo u svakoj verziji: [CHANGELOG.md](CHANGELOG.md)
 
 ## Instalacija (Chrome, developer mode)
 
@@ -31,6 +32,10 @@ https://github.com/marko1943/nekretnine-tracker-release/raw/main/nekretnine-trac
 Preuzmi novi ZIP sa ovog repoa, raspakuj preko starog foldera (ili obriši stari i raspakuj novi), pa u `chrome://extensions` klikni **Reload** na kartici ekstenzije.
 
 Podaci u listi ostaju u Chrome sync storage-u.
+
+## Istorija verzija
+
+[CHANGELOG.md](CHANGELOG.md) — šta se menjalo po verzijama. Javni repo drži samo najnoviji ZIP.
 
 ## Privatnost
 
