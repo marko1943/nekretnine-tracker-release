@@ -1,6 +1,6 @@
 # Politika privatnosti — Nekretnine Tracker
 
-**Poslednje ažuriranje:** 1. jul 2026.
+**Poslednje ažuriranje:** 16. jul 2026.
 
 ---
 
@@ -8,13 +8,13 @@
 
 ### Uvod
 
-Nekretnine Tracker („ekstenzija“) je Chrome ekstenzija za lično praćenje oglasa za nekretnine. **Ne postoji naš server** — ekstenzija ne šalje tvoje podatke na našu infrastrukturu.
+Nekretnine Tracker („ekstenzija“) je Chrome ekstenzija za lično praćenje oglasa za nekretnine. Autori ne vode zajednički multi-tenant server za sve korisnike.
 
 ### Ko obrađuje podatke
 
-Podatke čuva **Google Chrome** na tvom uređaju, preko API-ja `chrome.storage.sync`, u okviru **Chrome sinhronizacije** tvog Google naloga (ako je sync uključen u Chrome-u).
+**Podrazumevano:** podaci ostaju na tvom uređaju u `chrome.storage.local`.
 
-To znači da se lista oglasa može pojaviti i na drugim računarima gde si prijavljen istim Google nalogom i gde je ista ekstenzija instalirana. Google upravlja tim podacima prema svojoj [politici privatnosti](https://policies.google.com/privacy).
+**Opciono (Cloud sync):** ako se registruješ / uloguješ, oglasi idu preko **API-ja ekstenzije** (Cloudflare Worker) u Supabase projekat autora (Postgres + Auth, RLS po nalogu). Worker drži Supabase ključeve; ekstenzija šalje samo auth tokene i podatke oglasa. Supabase: [privacy](https://supabase.com/privacy). Cloudflare: [privacy](https://www.cloudflare.com/privacypolicy/).
 
 ### Koje podatke ekstenzija čuva
 
@@ -27,47 +27,47 @@ Ekstenzija čuva samo ono što ti eksplicitno sačuvaš ili uneseš:
 - ručno unete cene i kvadrature
 - datume dodavanja i izmene
 
-Ekstenzija **ne prikuplja** ime, email, lokaciju, kontakte niti podatke za reklamiranje.
+Za Cloud sync čuva se sesija (access/refresh token) lokalno i username naloga.
+
+Ekstenzija **ne prikuplja** lokaciju uređaja, kontakte niti podatke za reklamiranje.
 
 ### Šta ekstenzija radi na stranicama
 
-Da bi izvukla podatke o oglasu, ekstenzija na stranici koju otvoriš **čita HTML stranice** lokalno u browseru. Sadržaj stranica **ne šaljemo** na spoljni server.
+Da bi izvukla podatke o oglasu, ekstenzija na stranici koju otvoriš **čita HTML stranice** lokalno u browseru. Sadržaj stranica **ne šaljemo** na server autora ekstenzije.
 
-Dozvola za pristup svim URL-ovima (`<all_urls>`) služi isključivo da možeš sačuvati oglas sa bilo kog sajta oglasa — ne za praćenje tvog surfovanja.
+Dozvola `<all_urls>` služi za čuvanje oglasa sa bilo kog sajta i pozive ka API-ju — ne za praćenje surfovanja.
 
 ### Deljenje sa trećim stranama
 
 **Ne prodajemo, ne iznajmljujemo i ne delimo** tvoje podatke sa trećim stranama u marketinške svrhe.
 
-Jedino „deljenje“ je sinhronizacija preko Google Chrome sync infrastrukture, ako je uključena na tvom nalogu.
+Opciono: API Worker → Supabase kada koristiš Cloud sync.
 
 ### Analitika i praćenje
 
-Ekstenzija **nema** ugrađenu analitiku, telemetriju, crash reporting servise niti spoljne API pozive za podatke korisnika.
+Ekstenzija **nema** ugrađenu analitiku, telemetriju niti crash reporting.
 
 ### Izvoz, uvoz i brisanje
 
-- **Izvoz** — JSON backup cele liste (dugme u ekstenziji)
+- **Izvoz** — JSON backup cele liste
 - **Uvoz** — spajanje backup-a sa postojećom listom
-- **Brisanje** — pojedinačni oglasi u listi, ili deinstalacija ekstenzije (Chrome briše podatke ekstenzije prema pravilima browsera)
-
-Za prelazak na drugi nalog ili backup van Chrome-a: koristi Izvoz pre deinstalacije.
+- **Brisanje** — u listi; na cloudu soft-delete; deinstalacija briše lokalni storage
 
 ### Deca
 
-Ekstenzija nije namenjena deci mladjoj od 13 godina i ne prikuplja podatke o deci namerno.
+Ekstenzija nije namenjena deci mlađoj od 13 godina.
 
 ### Bezbednost
 
-Podaci su ograničeni na Chrome storage; pristup imaju samo ova ekstenzija i Chrome na tvom nalogu. Preporučujemo da ne deliš Google nalog i da koristiš Izvoz za sopstveni backup.
+Koristi jaku lozinku. Supabase ključevi su samo na Workeru; **service_role** se ne koristi u ovom setup-u.
 
 ### Izmene politike
 
-Ažuriranja objavljujemo na istom URL-u sa novim datumom. Nastavak korišćenja posle izmene znači prihvatanje ažurirane politike.
+Ažuriranja na istom URL-u sa novim datumom.
 
 ### Kontakt
 
-Pitanja i prijave: [GitHub Issues](https://github.com/marko1943/nekretnine-tracker/issues)
+[GitHub Issues](https://github.com/marko1943/nekretnine-tracker/issues)
 
 ---
 
@@ -75,63 +75,44 @@ Pitanja i prijave: [GitHub Issues](https://github.com/marko1943/nekretnine-track
 
 ### Introduction
 
-Nekretnine Tracker (the “extension”) is a Chrome extension for personal tracking of real-estate listings. **We do not operate a server** — the extension does not send your data to our infrastructure.
+Nekretnine Tracker is a Chrome extension for personal real-estate listing tracking. The authors do not run a shared multi-tenant backend for all users.
 
 ### Who processes your data
 
-Data is stored by **Google Chrome** on your device, via the `chrome.storage.sync` API, as part of **Chrome sync** for your Google account (when sync is enabled in Chrome).
+**Default:** data stays on your device in `chrome.storage.local`.
 
-Your saved listings may appear on other computers where you are signed in with the same Google account and have the same extension installed. Google handles that data under its [Privacy Policy](https://policies.google.com/privacy).
+**Optional (Cloud sync):** if you register/sign in, listings go through the extension’s API (Cloudflare Worker) to the author’s Supabase project (RLS per user). The Worker holds Supabase keys. See [Supabase](https://supabase.com/privacy) and [Cloudflare](https://www.cloudflare.com/privacypolicy/) privacy policies.
 
 ### What data the extension stores
 
-The extension stores only what you explicitly save or enter:
+Only what you save or enter: listing fields, notes, rating, priority, status, timestamps. For Cloud sync: auth session tokens and username locally.
 
-- listing URL and title
-- website (domain)
-- data extracted from the page (price, area, rooms, image, etc.)
-- your notes, rating, priority, and status
-- manually entered prices and areas
-- dates added and updated
-
-The extension does **not** collect your name, email, location, contacts, or advertising data.
+No device location, contacts, or advertising profiles.
 
 ### What the extension does on web pages
 
-To extract listing data, the extension **reads the HTML** of pages you open, locally in the browser. We do **not** send page content to an external server.
-
-The all-URLs host permission (`<all_urls>`) exists solely so you can save listings from any real-estate site — not to track your browsing.
+It reads page HTML locally to extract listing fields. Page HTML is not sent to the extension authors’ servers.
 
 ### Sharing with third parties
 
-We **do not sell, rent, or share** your data with third parties for marketing.
-
-The only “sharing” is synchronization through Google’s Chrome sync infrastructure when enabled on your account.
+No marketing sale/rent/share. Optional sync via the API Worker to Supabase.
 
 ### Analytics and tracking
 
-The extension has **no** built-in analytics, telemetry, crash reporting, or external API calls for user data.
+None built in.
 
 ### Export, import, and deletion
 
-- **Export** — JSON backup of the full list (button in the extension)
-- **Import** — merge a backup with your existing list
-- **Delete** — remove individual listings in the app, or uninstall the extension (Chrome removes extension data per its rules)
-
-To move to another account or keep a backup outside Chrome: use Export before uninstalling.
+Export/import JSON; delete in UI (cloud soft-delete); uninstall clears local extension storage.
 
 ### Children
 
-The extension is not directed at children under 13 and does not knowingly collect children’s data.
+Not directed at children under 13.
 
 ### Security
 
-Data is limited to Chrome storage; only this extension and Chrome on your account can access it. Do not share your Google account; use Export for your own backups.
-
-### Changes to this policy
-
-Updates are posted at this URL with a new date. Continued use after changes means you accept the updated policy.
+Use a strong password. Supabase keys stay on the Worker only.
 
 ### Contact
 
-Questions and reports: [GitHub Issues](https://github.com/marko1943/nekretnine-tracker/issues)
+[GitHub Issues](https://github.com/marko1943/nekretnine-tracker/issues)

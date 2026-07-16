@@ -1,9 +1,9 @@
 # Nekretnine Tracker
 
 Chrome ekstenzija za čuvanje oglasa za nekretnine — ocena, prioritet, status, beleške i filteri.
-Podaci u **Chrome sync**-u (isti Google nalog na više računara). Bez našeg servera.
+Podaci lokalno; opciono cloud sync (username/lozinka).
 
-**Verzija:** 1.1.1
+**Verzija:** 1.2.0
 
 ## Preuzmi
 
@@ -31,7 +31,7 @@ https://github.com/marko1943/nekretnine-tracker-release/raw/main/nekretnine-trac
 
 Preuzmi novi ZIP sa ovog repoa, raspakuj preko starog foldera (ili obriši stari i raspakuj novi), pa u `chrome://extensions` klikni **Reload** na kartici ekstenzije.
 
-Podaci u listi ostaju u Chrome sync storage-u.
+Podaci u listi ostaju lokalno (i u cloudu ako si ulogovan).
 
 ## Istorija verzija
 

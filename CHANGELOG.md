@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.2.0 — 2026-07-16
+
+### Storage / cloud
+- Podaci u **`chrome.storage.local`** (bez Chrome Google sync)
+- **Mali API** (Cloudflare Worker) ispred Supabase-a — secreti nisu u ZIP/gitu
+- Login/registracija: **username + lozinka** preko API-ja
+- U ekstenziji samo javni `apiUrl` (`src/api-config.js`)
+- Lista: Cloud status + Sync
+- Migracija sa starog `chrome.storage.sync` → local
+- Merge po `dateUpdated`; soft-delete
+
+### Docs
+- [SERVER.md](SERVER.md), [supabase.sql](supabase.sql), [`server/`](../server/)
+
+### Testovi
+- `tests/sync-merge.test.js` — merge / delete / push pravila
+
 ## 1.1.1 — 2026-07-02
 
 ### Parser (`scrape.js`)
