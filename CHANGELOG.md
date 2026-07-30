@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.2 — 2026-07-30
+
+### Fix
+- **Vraćeno dugme „Izvoz“** u listi — slučajno izgubljeno u refaktoru za direktan Supabase (v1.3.0), ostao je samo „Uvoz“. Izvoz i dalje pravi JSON backup cele liste (`nekretnine-YYYY-MM-DD.json`), nezavisno od cloud sync-a.
+
 ## 1.3.1 — 2026-07-30
 
 ### Manifest
