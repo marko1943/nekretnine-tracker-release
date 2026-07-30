@@ -1,6 +1,6 @@
 # Politika privatnosti — Nekretnine Tracker
 
-**Poslednje ažuriranje:** 16. jul 2026.
+**Poslednje ažuriranje:** 30. jul 2026.
 
 ---
 
@@ -14,7 +14,7 @@ Nekretnine Tracker („ekstenzija“) je Chrome ekstenzija za lično praćenje o
 
 **Podrazumevano:** podaci ostaju na tvom uređaju u `chrome.storage.local`.
 
-**Opciono (Cloud sync):** ako se registruješ / uloguješ, oglasi idu preko **API-ja ekstenzije** (Cloudflare Worker) u Supabase projekat autora (Postgres + Auth, RLS po nalogu). Worker drži Supabase ključeve; ekstenzija šalje samo auth tokene i podatke oglasa. Supabase: [privacy](https://supabase.com/privacy). Cloudflare: [privacy](https://www.cloudflare.com/privacypolicy/).
+**Opciono (Cloud sync):** ako se registruješ / uloguješ, ekstenzija se **direktno** povezuje na Supabase (Auth + REST API) — bez posrednog servera autora. Ekstenzija sadrži samo javni Supabase URL i tzv. **publishable (anon) ključ**, koji je namenjen da bude javan i korišćen iz klijentskog koda; sam po sebi ne otkriva tuđe podatke. Pristup podacima je ograničen **Row Level Security (RLS)** pravilima — svaki nalog vidi samo svoje oglase. Supabase: [privacy](https://supabase.com/privacy).
 
 ### Koje podatke ekstenzija čuva
 
@@ -35,13 +35,13 @@ Ekstenzija **ne prikuplja** lokaciju uređaja, kontakte niti podatke za reklamir
 
 Da bi izvukla podatke o oglasu, ekstenzija na stranici koju otvoriš **čita HTML stranice** lokalno u browseru. Sadržaj stranica **ne šaljemo** na server autora ekstenzije.
 
-Dozvola `<all_urls>` služi za čuvanje oglasa sa bilo kog sajta i pozive ka API-ju — ne za praćenje surfovanja.
+Dozvola `<all_urls>` (`host_permissions`) služi za dve stvari: čuvanje oglasa sa bilo kog sajta koji otvoriš, i (kada koristiš Cloud sync) mrežne pozive direktno ka `*.supabase.co` radi prijave i čuvanja/preuzimanja tvoje liste. Ne koristi se za praćenje surfovanja.
 
 ### Deljenje sa trećim stranama
 
 **Ne prodajemo, ne iznajmljujemo i ne delimo** tvoje podatke sa trećim stranama u marketinške svrhe.
 
-Opciono: API Worker → Supabase kada koristiš Cloud sync.
+Opciono: ekstenzija → Supabase (direktno) kada koristiš Cloud sync. Nema posrednog servera koji vidi tvoje podatke.
 
 ### Analitika i praćenje
 
@@ -59,7 +59,7 @@ Ekstenzija nije namenjena deci mlađoj od 13 godina.
 
 ### Bezbednost
 
-Koristi jaku lozinku. Supabase ključevi su samo na Workeru; **service_role** se ne koristi u ovom setup-u.
+Koristi jaku lozinku. Ekstenzija sadrži samo javni **publishable (anon)** Supabase ključ; **service_role** ključ se nikad ne koristi niti čuva u ekstenziji. Pristup podacima štiti Supabase Auth + RLS po nalogu.
 
 ### Izmene politike
 
@@ -81,7 +81,7 @@ Nekretnine Tracker is a Chrome extension for personal real-estate listing tracki
 
 **Default:** data stays on your device in `chrome.storage.local`.
 
-**Optional (Cloud sync):** if you register/sign in, listings go through the extension’s API (Cloudflare Worker) to the author’s Supabase project (RLS per user). The Worker holds Supabase keys. See [Supabase](https://supabase.com/privacy) and [Cloudflare](https://www.cloudflare.com/privacypolicy/) privacy policies.
+**Optional (Cloud sync):** if you register/sign in, the extension connects **directly** to Supabase (Auth + REST API) — there is no middle server operated by the authors. The extension ships only a public Supabase URL and a **publishable (anon) key**, which is designed to be public and used from client-side code; on its own it does not expose anyone's data. Access is restricted by **Row Level Security (RLS)** — each account can only see its own listings. See [Supabase privacy policy](https://supabase.com/privacy).
 
 ### What data the extension stores
 
@@ -91,11 +91,13 @@ No device location, contacts, or advertising profiles.
 
 ### What the extension does on web pages
 
-It reads page HTML locally to extract listing fields. Page HTML is not sent to the extension authors’ servers.
+It reads page HTML locally to extract listing fields. Page HTML is not sent to the extension authors' servers.
+
+The `<all_urls>` `host_permissions` permission is used for two things: saving listings from any site you open, and (when you use Cloud sync) making network requests directly to `*.supabase.co` to sign in and to store/retrieve your list. It is not used to track your browsing.
 
 ### Sharing with third parties
 
-No marketing sale/rent/share. Optional sync via the API Worker to Supabase.
+No marketing sale/rent/share. Optional sync goes directly from the extension to Supabase — there is no intermediary server that sees your data.
 
 ### Analytics and tracking
 
@@ -111,7 +113,7 @@ Not directed at children under 13.
 
 ### Security
 
-Use a strong password. Supabase keys stay on the Worker only.
+Use a strong password. The extension only ships the public **publishable (anon)** Supabase key; the **service_role** key is never used or stored in the extension. Data access is protected by Supabase Auth and per-account RLS.
 
 ### Contact
 

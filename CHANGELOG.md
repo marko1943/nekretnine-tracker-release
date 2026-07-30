@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.0 — 2026-07-30
+
+### Storage / cloud
+- **Cloud sync ide direktno na Supabase** (Auth + REST) — uklonjen Cloudflare Worker posrednik
+- Ekstenzija u ZIP-u sadrži samo javni Supabase URL + **publishable (anon) ključ** (`src/api-config.js`)
+- Listinzi opet u `chrome.storage.local` (cache); izvor istine je Supabase kad si ulogovan
+- Dugme u listi preimenovano u **„Nalog“** (`options.html`), zamenjuje stare „Cloud“/„Sync“ prikaze
+
+### Store / docs
+- `docs/PRIVACY.md` — SR + EN, ažurirano da opiše direktan Supabase (bez Cloudflare)
+- `docs/STORE_LISTING.md` — permission justification za `<all_urls>` sad pominje pozive ka `*.supabase.co`; screenshot checklist ažuriran (Nalog stranica)
+- Verzija **1.3.0**
+
 ## 1.2.0 — 2026-07-16
 
 ### Storage / cloud
