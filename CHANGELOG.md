@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.1 — 2026-07-30
+
+### Manifest
+- Uklonjena neiskorišćena permisija **`scripting`** iz `manifest.json` (nigde se ne poziva `chrome.scripting.*`; content script se registruje statički preko `content_scripts`) — manji permission footprint za Chrome Web Store review
+
+### Store
+- Ekstenzija (v1.3.0 build, isti kod) **poslata na reviziju** na Chrome Web Store kao **Unlisted**
+- Popunjene permission justifikacije (`activeTab`, `contextMenus`, `storage`, host permission), single purpose opis, privacy policy URL, data usage deklaracija (samo "Website content")
+- Draft screenshot liste (1280×800) pripremljen u `docs/screenshots/` (lokalno, van git-a)
+
 ## 1.3.0 — 2026-07-30
 
 ### Storage / cloud

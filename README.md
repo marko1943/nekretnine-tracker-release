@@ -3,7 +3,7 @@
 Chrome ekstenzija za čuvanje oglasa za nekretnine — ocena, prioritet, status, beleške i filteri.
 Podaci lokalno; opciono cloud sync (username/lozinka).
 
-**Verzija:** 1.3.0
+**Verzija:** 1.3.1
 
 ## Preuzmi
 
