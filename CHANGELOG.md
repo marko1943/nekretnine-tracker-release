@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.3 — 2026-07-30
+
+### Fix
+- **Obrisane nekretnine su se vraćale nazad** posle sinhronizacije sa Supabase-om. Brisanje je soft-delete (upsert sa `deleted: true`); taj cloud upis je bio "fire and forget" — ako ne uspe (mreža, istekla sesija, zatvoren tab pre završetka zahteva), greška se samo logovala, a lokalni zapis je već bio uklonjen. Sledeći sync bi video da lokalno zapisa nema, da na serveru i dalje postoji sa `deleted: false`, i vratio bi ga.
+- Dodat "pending deletes" red u `chrome.storage.local`: brisanje se pamti dok cloud potvrda ne stigne, ponovo se pokušava na početku svakog sync-a (`syncNow`), a redovi koji čekaju potvrdu se filtriraju iz remote-a tako da se ne mogu vratiti u međuvremenu.
+
 ## 1.3.2 — 2026-07-30
 
 ### Fix
