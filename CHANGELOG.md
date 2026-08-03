@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.4.0 — 2026-08-03
+
+### Lista
+- **Odbačeni oglasi uvek na dnu** — bez obzira na sort (datum, cena, prioritet…)
+- Uklonjeno **„Grupiši po“**; umesto toga je **pretraga** u filter redu (naziv, lokacija, beleške, sajt)
+
+### Popup
+- Posle „Sačuvano ✓“ sakriva se dugme **＋ Sačuvaj trenutnu stranicu** dok je forma za detalje otvorena
+
+### Fix
+- Kontekstni meni (**„Sačuvaj ovu nekretninu“**) se ponovo registruje pri svakom startu service workera — više ne nestaje kad SW padne ili kasni posle reload-a ekstenzije
+
 ## 1.3.3 — 2026-07-30
 
 ### Fix
