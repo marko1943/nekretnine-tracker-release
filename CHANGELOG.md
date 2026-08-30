@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.1 — 2026-08-30
+
+### Cloud sync
+- Dugme **„Sync sada"** na stranici Nalog — ručna sinhronizacija bez odjave/prijave
+- Napomena da svaki **Chrome profil** ima poseban keš i traži login/sync posebno
+- Istekla sesija se sada **briše** umesto da ostane „ulogovan ali ne sync-uje"
+- Upozorenje u listi kad sesija istekne (dugme Nalog)
+
 ## 1.4.0 — 2026-08-03
 
 ### Lista
