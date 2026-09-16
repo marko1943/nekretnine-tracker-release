@@ -1,10 +1,16 @@
 # Changelog
 
+## 1.4.2 — 2026-09-16
+
+### Cloud sync
+- Lokalni keš posle merge-a **zamenjuje** mapu (briše uklonjene oglase) umesto da samo dodaje ID-jeve
+- Svaki `save` bump-uje `dateUpdated` pa izmene sa liste (status, ocena…) stvarno idu u Supabase
+- Uklonjeno suvišno dugme **„Sync sada“** — sync ide pri otvaranju/refresh liste i posle login-a
+
 ## 1.4.1 — 2026-08-30
 
 ### Cloud sync
-- Dugme **„Sync sada"** na stranici Nalog — ručna sinhronizacija bez odjave/prijave
-- Napomena da svaki **Chrome profil** ima poseban keš i traži login/sync posebno
+- Napomena da svaki **Chrome profil** ima poseban keš i traži login posebno
 - Istekla sesija se sada **briše** umesto da ostane „ulogovan ali ne sync-uje"
 - Upozorenje u listi kad sesija istekne (dugme Nalog)
 
