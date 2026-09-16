@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.4 — 2026-09-16
+
+### Cloud sync
+- Ako upsert u Supabase padne (mreža / sesija), zapis ide u **pending upsert** red i ponovo se šalje na sledećem sync-u (otvaranje liste) — ista ideja kao za soft-delete
+- Smanjuje šansu da oglas ostane samo na jednom Chrome profilu
+
 ## 1.4.3 — 2026-09-16
 
 ### Lista / scrape
