@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.3 — 2026-09-16
+
+### Lista / scrape
+- Uklonjeno nagađanje i prikaz broja **spavaćih** soba (`N spavaće`) — bilo je nepouzdano
+- Polje `rooms` sada drži ukupan broj soba sa oglasa (trosoban = 3), bez konverzije u spavaće
+
 ## 1.4.2 — 2026-09-16
 
 ### Cloud sync
